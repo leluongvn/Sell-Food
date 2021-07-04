@@ -74,24 +74,6 @@ public class MeFragmentAdmin extends Fragment {
             }
         });
         setAdapterFeedback();
-
-//        List<Account> accounts = database3.daoAccount().ACCOUNT_LIST();
-//        mTextViewSoluongtaikhoan.setText("Tài khoản đang hoạt động " + accounts.size());
-//
-//
-//        BuyDatabase database = BuyDatabase.getInstance(getContext());
-//        AppDatabase database1 = AppDatabase.getInstance(getContext());
-//        List<Foody> foodyList = database1.daoFood().FOODY_LIST();
-//        mTextViewSoluongdangban.setText("Số lượng mặt hàng đang bán : " + foodyList.size());
-//
-//        List<Buy> buyList = database.daoBuy().BUY_LIST();
-//        double tn = 0.0;
-//        for (Buy b : buyList) {
-//            tn += b.getPrice();
-//        }
-//        mTextViewThunhap.setText("Tổng thu nhập : " + tn + " vnđ");
-//        mTextViewSoluong.setText("Số lượng đơn hàng đã bán : " + buyList.size());
-//
         return root;
     }
 
@@ -102,8 +84,6 @@ public class MeFragmentAdmin extends Fragment {
 
         adapter = new FeedBackAdapter(getContext(), feedBacks);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        FeedBack feedBack = feedBacks.get(1);
-        Log.e("FEED BACK ",""+feedBack.getContent());
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(adapter);
     }
