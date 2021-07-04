@@ -22,7 +22,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private EditText mEdt_user;
     private EditText mEdt_pass;
-    private CheckBox cb_remember;
     private Button mbtn_login;
     private ImageView mImageView_addacc;
     private ImageView mImageView_cnfb;
@@ -35,113 +34,98 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mapping();
 
-
-//        Bundle bundle = getIntent().getExtras();
-//        String us = bundle.getString("user");
-//        String ps = bundle.getString("pass");
-//        mEdt_user.setText(us);
-//        mEdt_pass.setText(ps);
         CheckLogin();
-
         mbtn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            login();
+                login();
             }
         });
         mImageView_addacc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent= new Intent(MainActivity.this,SignUpActivity2.class);
-               startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, SignUpActivity2.class);
+                startActivity(intent);
             }
         });
         mImageView_Reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,ResetAccountActivity.class);
+                Intent intent = new Intent(MainActivity.this, ResetAccountActivity.class);
                 startActivity(intent);
             }
         });
     }
-    private void login(){
 
-        SharedPreferences preferences =MainActivity.this.getSharedPreferences("login",MODE_PRIVATE);
+    private void login() {
+
+        SharedPreferences preferences = MainActivity.this.getSharedPreferences("login", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         String user = mEdt_user.getText().toString();
         String pass = mEdt_pass.getText().toString();
 
         AccountDatabase database = AccountDatabase.getInstance(getApplicationContext());
-
         List<Account> accountList = database.daoAccount().ACCOUNT_LIST();
+
+        if (user.equals("admin") && pass.equals("12345")) {
+            Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
 
         String us = null;
         String ps = null;
 
-        for( Account account : accountList){
-            if (user.equals(account.getUser())){
-                us=account.getUser();
+        for (Account account : accountList) {
+            if (user.equals(account.getUser())) {
+                us = account.getUser();
                 ps = account.getPass();
-                Log.e("USER",""+us+""+ps);
+                Log.e("USER", "" + us + "" + ps);
                 break;
             }
         }
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             mEdt_user.setError("Tên đăng nhập trống !");
             return;
         }
-        if (user.equals(us) == false){
+        if (user.equals(us) == false) {
             mEdt_user.setError("Tài khoản không tồn tại !");
             return;
         }
-        if(pass.isEmpty()){
+        if (pass.isEmpty()) {
             mEdt_pass.setError("Mật khẩu trống !");
             return;
         }
-        if (pass.equals(ps) == false){
+        if (pass.equals(ps) == false) {
             mEdt_pass.setError("Mật khẩu không đúng !");
             return;
         }
-        if(cb_remember.isChecked()){
+        editor.putString("user", user);
+        editor.putString("pass", pass);
+        editor.putBoolean("check", true);
+        editor.commit();
 
-            editor.putString("user",user);
-            editor.putString("pass",pass);
-            editor.putBoolean("check",true);
-            editor.commit();
-
-        }
-        else if (cb_remember.isChecked() == false){
-            editor.clear();
-        }
-        Intent intent = new Intent(MainActivity.this,Home_Activity2.class);
+        Intent intent = new Intent(MainActivity.this, Home_Activity2.class);
         startActivity(intent);
     }
 
-    private void CheckLogin(){
-        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-        boolean check = preferences.getBoolean("check",false);
-
-        if(check){
-            String user = preferences.getString("user",null);
-            String pass = preferences.getString("pass",null);
-            mEdt_user.setText(user);
-            mEdt_pass.setText(pass);
-            cb_remember.isChecked();
-        }
-        else{
-            mEdt_user.setText("");
-            mEdt_pass.setText("");
+    private void CheckLogin() {
+        SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+        boolean check = preferences.getBoolean("check", false);
+        if (check) {
+            Intent intent = new Intent(MainActivity.this, Home_Activity2.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
     }
 
     private void mapping() {
-        mEdt_user =findViewById(R.id.edt_user);
-        mEdt_pass =findViewById(R.id.edt_pass);
-        cb_remember=findViewById(R.id.cb_remember);
-        mbtn_login=findViewById(R.id.btn_login);
-        mImageView_addacc=findViewById(R.id.imv_addacc);
-        mImageView_cnfb=findViewById(R.id.imv_fb);
-        mImageView_cngm=findViewById(R.id.imv_gm);
-        mImageView_Reset=findViewById(R.id.imv_reset);
+        mEdt_user = findViewById(R.id.edt_user);
+        mEdt_pass = findViewById(R.id.edt_pass);
+        mbtn_login = findViewById(R.id.btn_login);
+        mImageView_addacc = findViewById(R.id.imv_addacc);
+        mImageView_cnfb = findViewById(R.id.imv_fb);
+        mImageView_cngm = findViewById(R.id.imv_gm);
+        mImageView_Reset = findViewById(R.id.imv_reset);
     }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_admin"
+    app:startDestination="@+id/navigation_home_admin">
+
+    <fragment
+        android:id="@+id/navigation_home_admin"
+        android:name="com.example.maket.ui_admin.home.HomeFragmentAdmin"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home_admin" />
+
+    <fragment
+        android:id="@+id/add_foodFragment_admin"
+        android:name="com.example.maket.ui_admin.add_food.AddFoodFragmentAdmin"
+        android:label="My Orders"
+        tools:layout="@layout/fragment_addfood_admin" />
+
+    <fragment
+        android:id="@+id/account_admin"
+        android:name="com.example.maket.ui_admin.Me.MeFragmentAdmin"
+        android:label="Me"
+        tools:layout="@layout/fragment_me_admin" />
+
+</navigation>

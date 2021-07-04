@@ -1,20 +1,12 @@
-package com.example.maket.ui.add_food;
+package com.example.maket.ui_admin.add_food;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Log;
@@ -30,6 +22,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.example.maket.Activity.AdminActivity;
 import com.example.maket.Activity.Home_Activity2;
 import com.example.maket.Convert.DataConvert;
 import com.example.maket.DAO.AppDatabase;
@@ -41,7 +39,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddFoodFragment extends Fragment {
+public class AddFoodFragmentAdmin extends Fragment {
     private static final int REQUESTCODE_CAMERA = 777;
     private static final int REQUESTCODE_FOLDER = 999;
     private EditText mEditText_name;
@@ -57,14 +55,16 @@ public class AddFoodFragment extends Fragment {
     Bitmap bitmapImages = null;
 
     private TextView textView;
-    private AddFoodVIewModel addFoodVIewModel;
+    private AddFoodVIewModelAdmin addFoodVIewModel;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         addFoodVIewModel =
-                ViewModelProviders.of(this).get(AddFoodVIewModel.class);
-        View root = inflater.inflate(R.layout.fragment_addfood, container, false);
+                ViewModelProviders.of(this).get(AddFoodVIewModelAdmin.class);
+
+
+        View root = inflater.inflate(R.layout.fragment_addfood_admin, container, false);
         mEditText_name = root.findViewById(R.id.edt_namefood);
         mEditText_price = root.findViewById(R.id.edt_price);
         mEditText_discribe = root.findViewById(R.id.edt_describe);
@@ -100,7 +100,6 @@ public class AddFoodFragment extends Fragment {
                 startActivityForResult(intent, REQUESTCODE_FOLDER);
             }
         });
-
         mButton_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +134,7 @@ public class AddFoodFragment extends Fragment {
                     foody.setDetail(review);
                     foody.setImage(DataConvert.ConvertImages(bitmapImages));
                     db.daoFood().insertFoody(foody);
-                    Intent intent = new Intent(getContext(), Home_Activity2.class);
+                    Intent intent = new Intent(getContext(), AdminActivity.class);
                     startActivity(intent);
                 } catch (Exception e) {
                     Log.e("ERRO", "" + e);

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.oder.OrderFragment">
+    tools:context=".ui_user.oder.OrderFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -43,6 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp"
+            android:textColor="#FFFCFD"
+            android:background="@color/colorPrimary"
             android:id="@+id/btn_thanhtoan"
             android:text="Thanh toán"/>
     </LinearLayout>

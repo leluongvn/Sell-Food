@@ -1,15 +1,17 @@
-package com.example.maket.ui.add_food;
+package com.example.maket.ui_user.oder;
+
+import android.widget.TextView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AddFoodVIewModel extends ViewModel {
+public class OrderViewModel extends ViewModel {
+private TextView textView;
     private MutableLiveData<String> mText;
 
-    public AddFoodVIewModel() {
+    public OrderViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is add fodd frament");
     }
 
     public LiveData<String> getText() {

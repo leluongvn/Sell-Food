@@ -7,10 +7,6 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/add_foodFragment"
-        android:icon="@drawable/add"
-        android:title="Add_Food" />
-    <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/myorder"
         android:title="My Oders" />
